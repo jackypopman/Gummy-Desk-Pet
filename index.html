@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6efe4" />
+    <title>软糖桌宠 · 交互原型</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="desktop" id="desktop">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">ฅ</span>
+          <span>软糖桌宠</span>
+          <span class="prototype-tag">原型</span>
+        </div>
+        <div class="top-actions">
+          <button class="icon-button" id="soundButton" aria-label="切换声音">♪</button>
+          <button class="icon-button" id="settingsButton" aria-label="打开设置">⚙</button>
+        </div>
+      </header>
+
+      <section class="welcome-card" id="welcomeCard">
+        <div class="welcome-copy">
+          <span class="eyebrow">今天也一起待一会儿吧</span>
+          <h1><span id="greetingName">团子</span>正在桌边等你</h1>
+          <p id="statusCopy">看起来精神很好，想和你的鼠标玩一会儿。</p>
+        </div>
+        <div class="affection">
+          <div class="affection-label">
+            <span>亲密度</span>
+            <span id="affectionValue">12 / 100</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="affectionFill"></div></div>
+        </div>
+      </section>
+
+      <section class="quick-panel hidden" id="quickPanel" aria-label="宠物互动面板">
+        <button class="panel-settings" id="panelSettingsButton" aria-label="打开设置">⚙</button>
+        <button class="panel-close" id="closeQuickPanel" aria-label="关闭互动面板">×</button>
+        <div class="pet-mini-profile">
+          <div class="profile-main">
+            <div class="mini-avatar" id="miniAvatar">🐱</div>
+            <div class="profile-name-wrap">
+              <strong id="profileName">团子</strong>
+            </div>
+          </div>
+          <div class="profile-stats">
+            <span class="affection-chip">忠诚度 <span id="compactAffection">12</span></span>
+            <span class="profile-meta"><span id="profileMood">心情：开心</span></span>
+          </div>
+        </div>
+        <div class="quick-actions">
+          <button class="action-button petting" id="pettingButton">
+            <span>♡</span>
+            摸摸
+          </button>
+          <button class="action-button treat" id="treatButton">
+            <span>◒</span>
+            投喂
+          </button>
+          <button class="action-button play" id="playButton">
+            <span>♬</span>
+            互动
+          </button>
+          <button class="action-button focus" id="focusButton">
+            <span>◷</span>
+            工作
+          </button>
+          <button class="action-button closet" id="closetButton">
+            <span>✦</span>
+            变身
+          </button>
+        </div>
+      </section>
+
+      <section class="focus-card hidden" id="focusCard">
+        <button class="close-button" id="closeFocus" aria-label="关闭专注面板">×</button>
+        <span class="eyebrow">安静陪伴中</span>
+        <div class="timer" id="timer">25:00</div>
+        <div class="timer-presets" id="timerPresets">
+          <button data-minutes="25" class="selected">25 分钟</button>
+          <button data-minutes="45">45 分钟</button>
+          <button data-minutes="60">60 分钟</button>
+        </div>
+        <button class="primary-button" id="timerToggle">开始计时</button>
+      </section>
+
+      <aside class="drawer hidden" id="closetDrawer" aria-label="宠物衣柜">
+        <div class="drawer-header">
+          <div>
+            <span class="eyebrow">宠物衣柜</span>
+            <h2>今天想变成谁？</h2>
+          </div>
+          <button class="close-button" data-close="closetDrawer">×</button>
+        </div>
+
+        <div class="drawer-scroll">
+        <label class="field-label">名字</label>
+        <input class="name-input" id="nameInput" maxlength="8" value="团子" />
+
+        <label class="field-label">宠物造型</label>
+        <div class="skin-grid" id="skinChoices">
+          <button class="skin-card selected" data-skin="cat-orange"><img src="./assets/animation-frames/cat-orange-idle-1.png" alt="" /><span>橘猫铃铛</span></button>
+          <button class="skin-card" data-skin="dog-golden"><img src="./assets/animation-frames/dog-golden-idle-1.png" alt="" /><span>金毛铃铛</span></button>
+          <button class="skin-card" data-skin="cat-silver"><img src="./assets/animation-frames/cat-silver-idle-1.png" alt="" /><span>银灰围巾猫</span></button>
+          <button class="skin-card" data-skin="dog-gray"><img src="./assets/animation-frames/dog-gray-idle-1.png" alt="" /><span>灰灰围巾狗</span></button>
+          <button class="skin-card" data-skin="cat-white"><img src="./assets/animation-frames/cat-white-idle-1.png" alt="" /><span>奶白蝴蝶结猫</span></button>
+          <button class="skin-card" data-skin="dog-white"><img src="./assets/animation-frames/dog-white-idle-1.png" alt="" /><span>奶白围巾狗</span></button>
+          <button class="skin-card" data-skin="cat-black"><img src="./assets/animation-frames/cat-black-idle-1.png" alt="" /><span>星星黑猫</span></button>
+          <button class="skin-card" data-skin="dog-black"><img src="./assets/animation-frames/dog-black-idle-1.png" alt="" /><span>星星黑柴</span></button>
+          <button class="skin-card" data-skin="cat-brown"><img src="./assets/animation-frames/cat-brown-idle-1.png" alt="" /><span>森林围巾猫</span></button>
+          <button class="skin-card" data-skin="dog-brown"><img src="./assets/animation-frames/dog-brown-idle-1.png" alt="" /><span>森林长耳狗</span></button>
+        </div>
+
+        <label class="field-label">性格</label>
+        <div class="personality-list" id="personalityChoices">
+          <button class="personality selected" data-personality="clingy"><strong>黏人</strong><span>喜欢靠近你</span></button>
+          <button class="personality" data-personality="playful"><strong>活泼</strong><span>更爱跑和玩</span></button>
+          <button class="personality" data-personality="calm"><strong>安静</strong><span>经常趴着陪伴</span></button>
+        </div>
+        <button class="primary-button full-width" id="savePet">保存造型</button>
+        </div>
+      </aside>
+
+      <aside class="drawer hidden" id="settingsDrawer" aria-label="设置">
+        <div class="drawer-header">
+          <div>
+            <span class="eyebrow">偏好设置</span>
+            <h2>让陪伴刚刚好</h2>
+          </div>
+          <button class="close-button" data-close="settingsDrawer">×</button>
+        </div>
+        <div class="drawer-scroll">
+        <div class="setting-row">
+          <div><strong>互动提示</strong><span>显示宠物的想法气泡</span></div>
+          <label class="switch"><input id="bubbleToggle" type="checkbox" checked /><span></span></label>
+        </div>
+        <div class="setting-row">
+          <div><strong>轻柔音效</strong><span>点击和完成专注时播放</span></div>
+          <label class="switch"><input id="soundToggle" type="checkbox" checked /><span></span></label>
+        </div>
+        <div class="setting-block">
+          <div><strong>宠物大小</strong><span>按你的桌面空间调整</span></div>
+          <input id="sizeRange" type="range" min="80" max="130" value="100" />
+        </div>
+        <button class="secondary-button full-width" id="resetButton">恢复初始状态</button>
+        </div>
+      </aside>
+
+      <div class="toast" id="toast" role="status"></div>
+
+      <div class="pet-zone" id="petZone">
+        <div class="speech-bubble" id="speechBubble">摸摸头吗？</div>
+        <div class="heart-particles" id="heartParticles"></div>
+        <div class="pet cat cream" id="pet" role="button" tabindex="0" aria-label="桌面宠物团子">
+          <img class="pet-art pet-idle-art" src="./assets/orange-kitten-v2.png" alt="" draggable="false" />
+          <img class="pet-art pet-motion-art active" id="petMotionArtA" src="./assets/animation-frames/kitten-scratch-1.png" alt="" draggable="false" />
+          <img class="pet-art pet-motion-art" id="petMotionArtB" src="./assets/animation-frames/kitten-scratch-2.png" alt="" draggable="false" />
+          <div class="tail"></div>
+          <div class="pet-body">
+            <div class="chest-patch"></div>
+            <div class="paw paw-left"></div>
+            <div class="paw paw-right"></div>
+          </div>
+          <div class="pet-head">
+            <div class="ear ear-left"><i></i></div>
+            <div class="ear ear-right"><i></i></div>
+            <div class="face-patch"></div>
+            <div class="eye eye-left"><i></i></div>
+            <div class="eye eye-right"><i></i></div>
+            <div class="cheek cheek-left"></div>
+            <div class="cheek cheek-right"></div>
+            <div class="muzzle"><i class="nose"></i><i class="mouth"></i></div>
+          </div>
+          <div class="shadow"></div>
+        </div>
+        <div class="floor-line"></div>
+        <p class="interaction-hint">单击互动 · 按住拖动</p>
+      </div>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>

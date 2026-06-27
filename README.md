@@ -1,2 +1,33 @@
-# Gummy-Desk-Pet
-A cross-platform desktop pet app that brings a lively orange cat onto your screen. Unlike static wallpapers, Dango stays by your side whether you're working or taking a break, adding a touch of warmth to your digital life.
+# 软糖桌宠 · 交互原型
+
+一个纯本地、无需服务器的桌宠产品原型。默认只在桌面显示宠物，单击宠物后弹出互动卡片。
+
+## 运行
+
+直接双击 `index.html` 即可使用。也可以在此目录启动任意静态文件服务。
+
+macOS 桌面版可直接双击 `软糖桌宠.app`。如果应用没有显示，双击
+`启动软糖桌宠.command` 会自动关闭旧进程、重新构建并启动。
+
+## 已实现
+
+- 猫 / 狗与三种毛色切换
+- 黏人、活泼、安静三种性格选择
+- 单击宠物弹出互动卡片
+- 抚摸、喂零食、拖拽移动
+- 挠痒、散步、小跑、打哈欠等随机动作，使用独立真实姿态图片
+- 桌面版拖动时跟随鼠标在屏幕中移动
+- 亲密度与本地保存
+- 25 / 45 / 60 分钟专注计时
+- 宠物大小、气泡和音效偏好
+- 随机眨眼与闲置睡眠状态
+
+## 下一阶段
+
+将界面迁移到 React，并在安装 Rust 工具链后接入 Tauri 2：
+
+- 透明无边框桌面窗口
+- 系统托盘与开机启动
+- 空白区域鼠标穿透
+- 多显示器与缩放支持
+- 正式序列帧或 Spine 动画资源
