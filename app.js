@@ -13,10 +13,12 @@ const defaults = {
   position: 74,
   positionY: 72,
   focusMinutes: 25,
+  lastLoyaltyDecayAt: Date.now(),
 };
 
 const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
 const state = { ...defaults, ...saved };
+const LOYALTY_DECAY_INTERVAL_MS = 5 * 60 * 1000;
 if (!state.skin) state.skin = state.species === "dog" ? "dog-golden" : "cat-orange";
 const nativeDesktop =
   new URLSearchParams(window.location.search).get("native") === "1" ||
@@ -32,6 +34,7 @@ let actionTimer = null;
 let motionTimer = null;
 let blinkTimer = null;
 let blinkResetTimer = null;
+let loyaltyDecayTimer = null;
 let activeMotionArt = 0;
 const motionFrameCache = [];
 let playIndex = 0;
@@ -175,9 +178,38 @@ function showToast(message) {
 }
 
 function addAffection(amount) {
-  state.affection = Math.min(100, state.affection + amount);
+  state.affection = Math.max(0, Math.min(100, state.affection + amount));
   saveState();
   render();
+}
+
+function applyLoyaltyDecay({ notify = false } = {}) {
+  const now = Date.now();
+  if (!state.lastLoyaltyDecayAt || state.lastLoyaltyDecayAt > now) {
+    state.lastLoyaltyDecayAt = now;
+    saveState();
+    return;
+  }
+
+  const decaySteps = Math.floor((now - state.lastLoyaltyDecayAt) / LOYALTY_DECAY_INTERVAL_MS);
+  if (decaySteps <= 0) return;
+
+  state.lastLoyaltyDecayAt += decaySteps * LOYALTY_DECAY_INTERVAL_MS;
+  const lost = Math.min(state.affection, decaySteps);
+  if (lost > 0) {
+    state.affection -= lost;
+  }
+  saveState();
+  render();
+
+  if (notify && lost > 0) {
+    speak("有点想你了");
+  }
+}
+
+function scheduleLoyaltyDecay() {
+  clearInterval(loyaltyDecayTimer);
+  loyaltyDecayTimer = setInterval(() => applyLoyaltyDecay({ notify: true }), 60 * 1000);
 }
 
 function hearts(count = 4) {
@@ -442,7 +474,7 @@ function stopTimer(completed = false) {
     speak("完成啦，休息一下吧！");
     addAffection(3);
     hearts(7);
-    showToast("专注完成，获得 3 点亲密度");
+    showToast("专注完成，获得 3 点忠诚度");
   } else {
     setMood("idle", "开心", "随时可以再开始一段安静的陪伴。");
   }
@@ -676,6 +708,11 @@ window.addEventListener("resize", () => {
   if (!els.quickPanel.classList.contains("hidden")) positionQuickPanel();
 });
 
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) applyLoyaltyDecay({ notify: true });
+});
+
+applyLoyaltyDecay();
 render();
 preloadMotionFrames();
 els.nameInput.value = state.name;
@@ -683,4 +720,5 @@ timerSeconds = state.focusMinutes * 60;
 updateTimer();
 scheduleIdleBehavior();
 scheduleBlinking();
+scheduleLoyaltyDecay();
 setTimeout(() => speak("摸摸头吗？", 2400), 650);
